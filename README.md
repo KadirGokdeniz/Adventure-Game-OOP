@@ -1,14 +1,14 @@
 # A-Game-Classes-OOP
 
-Welcome to the A-Game-Classes-OOP project! This project is aimed at designing an adventure game using object-oriented programming principles. It consists of two main files: `20290344_20290310_others` and `20290344_20290310_program`.
+Welcome to the A-Game-Classes-OOP project! This project is aimed at designing an adventure game using object-oriented programming principles. It consists of two main files: `others` and `program`.
 
-## 20290344_20290310_others
+## others
 
-The `20290344_20290310_others` folder contains animations and images that will be used in the game. If you wish, you can also access the instructions by referring to the `readme.txt` file inside the `20290344_20290310_others` folder.
+The `others` folder contains animations and images that will be used in the game. If you wish, you can also access the instructions by referring to the `readme.txt` file inside the `others` folder.
 
-## 20290344_20290310_program
+## program
 
-The `20290344_20290310_program` file contains the necessary classes for the game. These classes are implemented using object-oriented programming concepts to facilitate game development.
+The `program` file contains the necessary classes for the game. These classes are implemented using object-oriented programming concepts to facilitate game development.
 
 ## Requirements
 
@@ -18,7 +18,7 @@ To run the game, make sure you have the Pygame library installed on your compute
 
 1. Clone the repository to your local machine.
 
-git clone https://github.com/KadirGokdeniz/A-Game-Classes-OOP.git
+git clone https://github.com/KadirGokdeniz/Adventure-Game-OOP.git
 
 2. Install the Pygame library using pip.
 
@@ -26,7 +26,7 @@ pip install pygame
 
 3. Run the game by executing the main file.
 
-python 20290344_20290310_others.py
+python others.py
 
 
 4. Upon running the game, you will be greeted with an initial menu screen. Press the space bar to access the instructions. Press the backspace key to return to the main menu. Press Enter to start the game.
