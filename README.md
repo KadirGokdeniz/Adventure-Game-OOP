@@ -11,7 +11,7 @@
 
 <h3 align="center">An Adventure Game</h3>
 
-Welcome to the A-Game-Classes-OOP project! This project is aimed at designing an adventure game using object-oriented programming principles. It consists of two main files: `others` and `program`.Also, you can access to look at the game without any downloading or piping by clicking on 'example.pdf' in others.
+Welcome to the A-Game-Classes-OOP project! This project is aimed at designing an adventure game using object-oriented programming principles. It consists of two main files: `others` and `program`.Furthermore, you can easily access and explore the game without the need to download or execute any commands. Simply click on the 'example.pdf' file located in the 'others' directory to view it.
 
 ## others
 
