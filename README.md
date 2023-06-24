@@ -47,3 +47,7 @@ python others.py
 6. After defeating all the DemonAxels, advance to the far right of the level to encounter our boss character, who has two different attack styles. Avoid getting too close to them and engage in battle. 
 
 7. Have fun and enjoy the game!
+
+## Contact
+- For any inquiries or questions, please feel free to contact me at kadirqokdeniz@hotmail.com.
+
