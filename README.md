@@ -13,11 +13,13 @@
 Welcome to the A-Game-Classes-OOP project! This project is aimed at designing an adventure game using object-oriented programming principles. It consists of two main files: `others` and `program`.Furthermore, you can easily access and explore the game without the need to download or execute any commands. Simply click on the 'example.pdf' file located in the 'others' directory to view it.
 
 <p align="center">
-  <img src="game.png" alt="Game Interface" width="200"/>
-  <img src="level1.png" alt="Level 1" width="200"/>
+  <img src="game1.png" alt="Game Interface" width="400"/>
+  <img src="game.png" alt="Level 1" width="400"/>
   <br>
-  <img src="level2.png" alt="Level 2" width="200"/>
+  <img src="level1.png" alt="Level 1" width="400"/>
+  <img src="level2.png" alt="Level 2" width="400"/>
 </p>
+
 ## others
 
 The `others` folder contains animations and images that will be used in the game. If you wish, you can also access the instructions by referring to the `readme.txt` file inside the `others` folder.
