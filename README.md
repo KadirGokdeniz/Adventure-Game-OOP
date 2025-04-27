@@ -3,11 +3,11 @@
 Welcome to the A-Game-Classes-OOP project! This project is aimed at designing an adventure game using object-oriented programming principles. It consists of two main files: `others` and `program`.Below are a few visuals provided for demonstration purposes. You can access more detailed version of images by clicking on the 'example.pdf' file located in the 'others' directory to view it.
 
 <p align="center">
-  <img src="game1.png" alt="Game Interface" width="400"/>
-  <img src="game.png" alt="Level 1" width="400"/>
+  <img src="representative_images/game1.png" alt="Game Interface" width="400"/>
+  <img src="representative_images/game.png" alt="Level 1" width="400"/>
   <br>
-  <img src="level1.png" alt="Level 1" width="400"/>
-  <img src="level2.png" alt="Level 2" width="400"/>
+  <img src="representative_images/level1.png" alt="Level 1" width="400"/>
+  <img src="representative_images/level2.png" alt="Level 2" width="400"/>
 </p>
 
 ## others
