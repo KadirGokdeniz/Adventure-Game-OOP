@@ -1,52 +1,51 @@
-import pygame 
-import sys
-sys.path.append("/")
-from TestLevel1 import TestLevel1
-from TestLevel2 import TestLevel2
-from TestLevel0 import TestLevel0
-from Options import Options
+# Entity.py
+import pygame
 
-pygame.init()
-
-class Game:
-    def __init__(self):
-        self.height=800
-        self.width=1550
-        self.window=pygame.display.set_mode((self.width,self.height))
-        pygame.display.set_caption("My Game")
+class Entity:
+    def __init__(self, x, y, scale, path, hp=10):
+        self.x = x
+        self.y = y
+        self.scale = scale
+        self.path = path
+        self.hp = hp
         
-        self.level_lock="Test Level0"
-        self.UpdateLevel()
-        self.clock=pygame.time.Clock()
-
-    def UpdateLevel(self):
-        if self.level_lock=="Test Level0":
-             self.current_level=TestLevel0(self.width,self.height)
-        elif self.level_lock=="Options":
-            self.current_level=Options(self.width,self.height)
-        elif self.level_lock=="Test Level1":
-            self.current_level=TestLevel1(self.width,self.height)
-        elif self.level_lock=="Test Level2":
-            self.current_level=TestLevel2(self.width,self.height)
-        self.level_lock=None
-
-    def draw(self):
-        self.current_level.Draw(self.window)
-        pygame.display.update()
-
-    def game_loop(self):     
-        self.key=pygame.key.get_pressed()
-        for event in pygame.event.get():
-            if event.type==pygame.QUIT:
-                return "QUIT"
-        self.Mouse=pygame.mouse.get_pressed()
-        self.level_lock=self.current_level.GameLoop(self.key,self.Mouse)
-        if self.level_lock!=None:
-            self.UpdateLevel()
-        self.draw()
-
-game=Game()
-while True:
-    game_status= game.game_loop()
-    if game_status is not None:
-        break
+        self.status = "Breath"
+        self.direction = False
+        self.isDeath = False
+        
+        # Animasyon yönetimi
+        self.animations = {}
+        self.animation_counters = {}
+        self.animation_delays = {}
+        self.last_update = pygame.time.get_ticks()
+        
+    def load_animation_set(self, name, prefix, count, delay):
+        """Bir animasyon seti yükler ve yapılandırır"""
+        frames = []
+        for i in range(1, count + 1):
+            img_path = f"{self.path}{prefix}{i}.png"
+            img = pygame.image.load(img_path).convert_alpha()
+            frames.append(pygame.transform.scale(img, self.scale))
+        
+        self.animations[name] = frames
+        self.animation_counters[name] = 0
+        self.animation_delays[name] = delay
+    
+    def animate(self, name):
+        """Animasyon karesini günceller ve indeksini döndürür"""
+        if pygame.time.get_ticks() - self.last_update > self.animation_delays[name]:
+            self.animation_counters[name] += 1
+            if self.animation_counters[name] >= len(self.animations[name]):
+                self.animation_counters[name] = 0
+            self.last_update = pygame.time.get_ticks()
+        return self.animation_counters[name]
+    
+    def draw(self, window):
+        """Mevcut duruma göre varlığı çizer"""
+        if self.status in self.animations:
+            frame = self.animations[self.status][self.animation_counters[self.status]]
+            window.blit(pygame.transform.flip(frame, self.direction, False), (self.x, self.y))
+    
+    def get_rect(self):
+        """Çarpışma dikdörtgeni - alt sınıflarda özelleştirilmeli"""
+        return pygame.Rect(self.x, self.y, self.scale[0], self.scale[1])
