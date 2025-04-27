@@ -1,6 +1,6 @@
-# My Game Project
+# Adventure-Game-OOP: A Pygame Based Combat Adventure
 
-Welcome to the A-Game-Classes-OOP project! This project is aimed at designing an adventure game using object-oriented programming principles. It consists of two main files: `others` and `program`.Below are a few visuals provided for demonstration purposes. You can access more detailed version of images by clicking on the 'example.pdf' file located in the 'others' directory to view it.
+**A 2D adventure game built with object-oriented programming principles, featuring engaging combat mechanics and progressive enemy encounters.**
 
 <p align="center">
   <img src="representative_images/game1.png" alt="Game Interface" width="400"/>
@@ -10,41 +10,106 @@ Welcome to the A-Game-Classes-OOP project! This project is aimed at designing an
   <img src="representative_images/level2.png" alt="Level 2" width="400"/>
 </p>
 
-## others
+---
 
-The `others` folder contains animations and images that will be used in the game. If you wish, you can also access the instructions by referring to the `readme.txt` file inside the `others` folder.
+## 🎮 Features
+- **OOP Fundamentals**: Inheritance, polymorphism, and encapsulation.
+- **Combat System**: 
+  - Light attack (fast) & heavy attack (slow but powerful).
+  - Unique animations for each attack type.
+- **Progressive Difficulty**: 
+  - Enemy waves with increasing strength.
+  - Final boss battle with complex attack patterns.
+- **Character Progression**: Collect gold to enhance abilities.
 
-## program
+---
 
-The `program` file contains the necessary classes for the game. These classes are implemented using object-oriented programming concepts to facilitate game development.
+## 📂 Project Structure
+```plaintext
+Adventure-Game-OOP/
+├── program/                 # Core game logic
+│   ├── Entity.py            # Base class (Entity)
+│   ├── Character.py         # Player controls & abilities
+│   ├── Boss.py              # Boss AI and mechanics
+│   ├── DemonAxe.py          # Standard enemy behavior
+│   ├── Level.py             # Level transitions & logic
+│   └── ResourceManager.py   # Singleton resource loader
+└── others/                  # Game assets
+    ├── Character_images/    # Player spritesheets
+    ├── Boss/                # Boss animations
+    ├── DemonAxe/            # Enemy sprites
+    ├── images/              # UI/Backgrounds
+    └── readme.txt           # Asset credits
+```
+## ⚙️ Technical Architecture
+```plaintext
+Core Classes
+Class	Description
+Entity	Base class for all game objects (player, enemies). Handles position, health.
+Character	Player-controlled entity with jump/attack mechanics.
+Enemy (Abstract)	Base enemy class. Inherited by DemonAxe and Boss.
+ResourceManager	Singleton class for loading images/sounds.
+Key Mechanics
+Wave System: Spawn enemies based on player progression (Level.py).
 
-## Requirements
+Boss Fight: Multi-phase battle with dynamic attack patterns (Boss.py).
+```
 
-To run the game, make sure you have the Pygame library installed on your computer. Pygame is a cross-platform set of Python modules designed for writing video games.
-
-## Getting Started
-
-1. Clone the repository to your local machine.
-
+## 🚀 Getting Started
+Installation
+Clone the repository:
+```plaintext
+bash
 git clone https://github.com/KadirGokdeniz/Adventure-Game-OOP.git
+```
+### Install dependencies:
+```plaintext
+bash
+pip install pygame==2.0.0
+```
+### Launching the Game
+```plaintext
+bash
+cd Adventure-Game-OOP
+python program/main.py
+```
+Controls
+Action	Key/Mouse
+Move Left/Right	A / D
+Jump	Space
+Light Attack	Left Mouse Click
+Heavy Attack	Right Mouse Click
+Pause/Menu Navigation	ESC / Backspace
+## 🤝 Contributing
+Fork the repository.
 
-2. Install the Pygame library using pip.
+### Create a branch:
+```plaintext
+bash
+git checkout -b feature/your-feature
+```
+### Commit changes:
+```plaintext
+bash
+git commit -m "feat: add your feature"
+```
+### Push to GitHub:
+```plaintext
+bash
+git push origin feature/your-feature
+```
+Open a Pull Request with a detailed description.
 
-pip install pygame
+## 📌 Roadmap
+New Enemy Types: Flying enemies & ranged attackers.
 
-3. Run the game by executing the main file.
+Level Editor: Custom level creation tool.
 
-python others.py
+Soundtrack: Dynamic music for combat/exploration.
 
+## 📜 License
+Distributed under the MIT License. See LICENSE for details.
 
-4. Upon running the game, you will be greeted with an initial menu screen. Press the space bar to access the instructions. Press the backspace key to return to the main menu. Press Enter to start the game.
+Contact: Kadir Gökdeniz - kadirqokdeniz@hotmail.com
 
-5. During the game, the main character has two different attack types. Left-clicking performs rapid attacks, while right-clicking performs slower but stronger attacks. Be mindful of the DemonAxel enemies that appear in different waves. Defeat all the DemonAxels to proceed to the next level.
-
-6. After defeating all the DemonAxels, advance to the far right of the level to encounter our boss character, who has two different attack styles. Avoid getting too close to them and engage in battle. 
-
-7. Have fun and enjoy the game!
-
-## Contact
-- For any inquiries or questions, please feel free to contact me at kadirqokdeniz@hotmail.com.
-
+Project Link: https://github.com/KadirGokdeniz/Adventure-Game-OOP
