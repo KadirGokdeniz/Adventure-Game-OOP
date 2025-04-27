@@ -1,5 +1,6 @@
 # Entity.py
 import pygame
+from ResourceManager import ResourceManager
 
 class Entity:
     def __init__(self, x, y, scale, path, hp=10):
@@ -12,7 +13,8 @@ class Entity:
         self.status = "Breath"
         self.direction = False
         self.isDeath = False
-        
+
+        self.resource_manager = ResourceManager()
         # Animasyon yönetimi
         self.animations = {}
         self.animation_counters = {}
