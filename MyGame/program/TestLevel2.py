@@ -6,15 +6,15 @@ class TestLevel2:
     def __init__(self,windows_width,windows_height):
         self.background=pygame.image.load("others\\TestLevels2\\background2.png").convert_alpha()
         self.background=pygame.transform.scale(self.background,(windows_width,windows_height))
-        self.Character=Character(2)
+        self.character=Character(2)
 
         self.Boss=Boss(1100)
-        self.isVictory=False
+        self.is_victory=False
         self.path2="others\\images\\"
 
-        self.gold1collect=False
-        self.gold2collect=False
-        self.gold3collect=False
+        self.gold1_collect=False
+        self.gold2_collect=False
+        self.gold3_collect=False
 
         self.victory=pygame.image.load(self.path2+"victory.png").convert_alpha()
         self.victory=pygame.transform.scale(self.victory,(400,200))
@@ -84,36 +84,36 @@ class TestLevel2:
         self._9 = self.resource_manager.load_image(self.path1+"9.jpg",(200,50))
 
         self.gold = self.resource_manager.load_image(self.path1+"gold.jpg",(60,35))
-        
+
     def Draw(self,window):
         window.blit(self.background,(0,0))
-        if self.Character.c_hp==10:
+        if self.character.c_hp==10:
             window.blit(self.hp10,(40,30))
-        if self.Character.c_hp==9:
+        if self.character.c_hp==9:
             window.blit(self.hp9,(40,30))
-        if self.Character.c_hp==8:
+        if self.character.c_hp==8:
             window.blit(self.hp8,(40,30))
-        if self.Character.c_hp==7:
+        if self.character.c_hp==7:
             window.blit(self.hp7,(40,30))
-        if self.Character.c_hp==6:
+        if self.character.c_hp==6:
             window.blit(self.hp6,(40,30))
-        if self.Character.c_hp==5:
+        if self.character.c_hp==5:
             window.blit(self.hp5,(40,30))
-        if self.Character.c_hp==4:
+        if self.character.c_hp==4:
             window.blit(self.hp4,(40,30))
-        if self.Character.c_hp==3:
+        if self.character.c_hp==3:
             window.blit(self.hp3,(40,30))
-        if self.Character.c_hp==2:
+        if self.character.c_hp==2:
             window.blit(self.hp2,(40,30))
-        if self.Character.c_hp==1:
+        if self.character.c_hp==1:
             window.blit(self.hp1,(40,30))
-        if self.Character.c_hp<=0:
+        if self.character.c_hp<=0:
             window.blit(self.hp0,(40,30))
         
         window.blit(self.gold,(1300,40))
         window.blit(self._0,(1430,45))
-        tens=(self.Character.c_gold%100)/10
-        hundres=(self.Character.c_gold-tens*10)/100
+        tens=(self.character.c_gold%100)/10
+        hundres=(self.character.c_gold-tens*10)/100
         if tens==0:
             window.blit(self._0,(1400,45))
         if tens==1:
@@ -179,33 +179,33 @@ class TestLevel2:
         if self.Boss.b_hp<=0:
             window.blit(self.hpb0,(1250,730))
 
-        self.Character.Draw(window)
-        if self.Character.c_x>=1400 and self.Character.c_gold>=90:
-            self.Character.Character_Save_Files()
+        self.character.Draw(window)
+        if self.character.c_x>=1400 and self.character.c_gold>=90:
+            self.character.character_Save_Files()
             window.blit(self.victory,(550,266))
-            self.isVictory=True
-            window.blit(self.Character.bMenu,(540,600))
-            window.blit(self.Character.restart,(500,500))
-        self.Boss.Draw(window,self.gold1collect,self.gold2collect,self.gold3collect)
+            self.is_victory=True
+            window.blit(self.character.bMenu,(540,600))
+            window.blit(self.character.restart,(500,500))
+        self.Boss.Draw(window,self.gold1_collect,self.gold2_collect,self.gold3_collect)
             
     def GameLoop(self,key,mouse):
         self.key=key
-        self.Character.GameLoop(key,mouse,self.isVictory,self.Boss.b_isAttack1,self.Boss.b_isAttack2,False,False,False,False)
-        self.Boss.GameLoop(self.Character.c_x,self.Character.c_isAttack1,self.Character.c_isAttack2,self.Character.c_status)
-        if (self.Character.get_Rect()).colliderect(self.Boss.b_x+168,607,30,30) and self.Boss.b_isDeath==True and self.gold1collect==False:
-            self.Character.c_gold+=10
-            self.gold1collect=True
+        self.character.GameLoop(key,mouse,self.is_victory,self.Boss.is_attack1,self.Boss.is_attack2,False,False,False,False)
+        self.Boss.GameLoop(self.character.c_x,self.character.c_is_attack1,self.character.c_is_attack2,self.character.c_status)
+        if (self.character.get_Rect()).colliderect(self.Boss.b_x+168,607,30,30) and self.Boss.is_death==True and self.gold1_collect==False:
+            self.character.c_gold+=10
+            self.gold1_collect=True
         
-        if (self.Character.get_Rect()).colliderect(self.Boss.b_x+268,607,30,30) and self.Boss.b_isDeath==True and self.gold2collect==False:
-            self.Character.c_gold+=10
-            self.gold2collect=True
+        if (self.character.get_Rect()).colliderect(self.Boss.b_x+268,607,30,30) and self.Boss.is_death==True and self.gold2_collect==False:
+            self.character.c_gold+=10
+            self.gold2_collect=True
         
-        if (self.Character.get_Rect()).colliderect(self.Boss.b_x+368,607,30,30) and self.Boss.b_isDeath==True and self.gold3collect==False:
-            self.Character.c_gold+=10
-            self.gold3collect=True
+        if (self.character.get_Rect()).colliderect(self.Boss.b_x+368,607,30,30) and self.Boss.is_death==True and self.gold3_collect==False:
+            self.character.c_gold+=10
+            self.gold3_collect=True
         
-        elif self.key[pygame.K_SPACE] and (self.Character.c_status=="Death" or self.isVictory):
+        elif self.key[pygame.K_SPACE] and (self.character.c_status=="death" or self.is_victory):
             return "Test Level1"
         
-        elif self.key[pygame.K_TAB] and (self.Character.c_status=="Death" or self.isVictory):
+        elif self.key[pygame.K_TAB] and (self.character.c_status=="death" or self.is_victory):
             return "Test Level0"

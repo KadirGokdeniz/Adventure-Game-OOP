@@ -17,48 +17,48 @@ class DemonAxe(Entity):
         self.coin_rect = pygame.Rect(self.coin_pos[0], self.coin_pos[1] + 15, 25, 25)
         
         # Saldırı durumları
-        self.isAttack1 = False
-        self.isAttack2 = False
+        self.is_attack1 = False
+        self.is_attack2 = False
         
         # demonAxe özgü flag'ler
         self.action_mode = False
         self.animation = False
-        self.isDeath = False
-        self.isAttack1 = False
-        self.isAttack2 = False
+        self.is_death = False
+        self.is_attack1 = False
+        self.is_attack2 = False
         
         # Animasyonları yükle
         self.load_animations()
         
     def load_animations(self):
         """Tüm animasyon setlerini yükler"""
-        self.load_animation_set("Breath", "b", 6, 250)
-        self.load_animation_set("Run", "r", 6, 250)
-        self.load_animation_set("AttackMode1", "a1", 6, 300)
-        self.load_animation_set("AttackMode2", "a2", 6, 300)
-        self.load_animation_set("Hurt", "h", 3, 100)
-        self.load_animation_set("Death", "d", 4, 300)
+        self.load_animation_set("breath", "b", 6, 250)
+        self.load_animation_set("run", "r", 6, 250)
+        self.load_animation_set("attack_mode1", "a1", 6, 300)
+        self.load_animation_set("attack_mode2", "a2", 6, 300)
+        self.load_animation_set("hurt", "h", 3, 100)
+        self.load_animation_set("death", "d", 4, 300)
         
     def draw(self, window):
         """demonAxe ve altınını çizer"""
         # Mevcut duruma göre çizim
-        if self.status == "Breath":
-            frame = self.animations["Breath"][self.animation_counters["Breath"]]
-        elif self.status == "Run":
-            frame = self.animations["Run"][self.animation_counters["Run"]]
-        elif self.status == "AttackMode1":
-            frame = self.animations["AttackMode1"][self.animation_counters["AttackMode1"]]
-        elif self.status == "AttackMode2":
-            frame = self.animations["AttackMode2"][self.animation_counters["AttackMode2"]]
-        elif self.status == "Hurt":
-            frame = self.animations["Hurt"][self.animation_counters["Hurt"]]
-        elif self.status == "Death":
-            if self.animation_counters["Death"] >= 3:
-                frame = self.animations["Death"][3]  # Son kare
+        if self.status == "breath":
+            frame = self.animations["breath"][self.animation_counters["breath"]]
+        elif self.status == "r":
+            frame = self.animations["r"][self.animation_counters["r"]]
+        elif self.status == "attack_mode1":
+            frame = self.animations["attack_mode1"][self.animation_counters["attack_mode1"]]
+        elif self.status == "attack_mode2":
+            frame = self.animations["attack_mode2"][self.animation_counters["attack_mode2"]]
+        elif self.status == "hurt":
+            frame = self.animations["hurt"][self.animation_counters["hurt"]]
+        elif self.status == "death":
+            if self.animation_counters["death"] >= 3:
+                frame = self.animations["death"][3]  # Son kare
                 # Altını göster
                 window.blit(self.coin, (self.coin_pos[0], self.coin_pos[1]))
             else:
-                frame = self.animations["Death"][self.animation_counters["Death"]]
+                frame = self.animations["death"][self.animation_counters["death"]]
                 
         # Karakteri çiz
         window.blit(pygame.transform.flip(frame, self.direction, False), (self.x, self.y))
@@ -66,21 +66,21 @@ class DemonAxe(Entity):
     def handle_movement(self, player_x):
         """Oyuncuya göre hareket mantığı"""
         # Yön belirleme
-        if player_x - 31 > self.x and not self.isDeath:
+        if player_x - 31 > self.x and not self.is_death:
             self.direction = False
             self.coin_pos[0] = self.x + 150
-        if player_x - 31 < self.x and not self.isDeath:
+        if player_x - 31 < self.x and not self.is_death:
             self.direction = True
             self.coin_pos[0] = self.x + 150
             
         # Hareket mantığı
-        if 0 < self.x - player_x <= 500 and not self.isDeath:
-            self.status = "Run"
+        if 0 < self.x - player_x <= 500 and not self.is_death:
+            self.status = "r"
             self.animation = True
             self.action_mode = True
             self.x -= 0.75
-        if 150 <= player_x - self.x <= 662 and not self.isDeath:
-            self.status = "Run"
+        if 150 <= player_x - self.x <= 662 and not self.is_death:
+            self.status = "r"
             self.animation = True
             self.action_mode = True
             self.x += 0.75
@@ -89,70 +89,70 @@ class DemonAxe(Entity):
         """Saldırı ve hasar mantığı"""
         # Oyuncudan gelen saldırıları işle
         if player_is_attack1:
-            self.isAttack1 = True
+            self.is_attack1 = True
         if player_is_attack2:
-            self.isAttack2 = True
+            self.is_attack2 = True
             
         # Saldırı durumuna geç veya hasar al
         if self.direction == False and player_x - self.x <= 150:
-            if (player_is_attack1 or player_is_attack2) and not self.isDeath:
-                self.status = "Hurt"
+            if (player_is_attack1 or player_is_attack2) and not self.is_death:
+                self.status = "hurt"
                 if self.hp <= 0:
-                    self.status = "Death"
-                    self.isDeath = True
-            if not (player_is_attack1 or player_is_attack2) and not self.isDeath:
-                self.status = "AttackMode1"
+                    self.status = "death"
+                    self.is_death = True
+            if not (player_is_attack1 or player_is_attack2) and not self.is_death:
+                self.status = "attack_mode1"
             self.animation = True
             
         if self.direction == True and player_x - self.x >= 0:
-            if (player_is_attack1 or player_is_attack2) and not self.isDeath:
-                self.status = "Hurt"
+            if (player_is_attack1 or player_is_attack2) and not self.is_death:
+                self.status = "hurt"
                 if self.hp <= 0:
-                    self.status = "Death"
-                    self.isDeath = True
-            if not (player_is_attack1 or player_is_attack2) and not self.isDeath:
-                self.status = "AttackMode1"
+                    self.status = "death"
+                    self.is_death = True
+            if not (player_is_attack1 or player_is_attack2) and not self.is_death:
+                self.status = "attack_mode1"
             self.animation = True
             
     def update_animation_state(self):
         """Animasyon durumunu günceller"""
         if self.action_mode:
-            if self.status == "Run":
-                self.animation_counters["Run"] = self.animate("Run")
-            elif self.status == "AttackMode1":
-                self.animation_counters["AttackMode1"] = self.animate("AttackMode1")
+            if self.status == "r":
+                self.animation_counters["r"] = self.animate("r")
+            elif self.status == "attack_mode1":
+                self.animation_counters["attack_mode1"] = self.animate("attack_mode1")
                 # Saldırı anı tespiti
-                if self.animation_counters["AttackMode1"] == 3:
-                    self.isAttack1 = True
+                if self.animation_counters["attack_mode1"] == 3:
+                    self.is_attack1 = True
                 else:
-                    self.isAttack1 = False
-            elif self.status == "AttackMode2":
-                self.animation_counters["AttackMode2"] = self.animate("AttackMode2")
+                    self.is_attack1 = False
+            elif self.status == "attack_mode2":
+                self.animation_counters["attack_mode2"] = self.animate("attack_mode2")
                 # Saldırı anı tespiti
-                if self.animation_counters["AttackMode2"] == 3:
-                    self.isAttack2 = True
+                if self.animation_counters["attack_mode2"] == 3:
+                    self.is_attack2 = True
                 else:
-                    self.isAttack2 = False
-            elif self.status == "Breath":
-                self.animation_counters["Breath"] = self.animate("Breath")
-            elif self.status == "Hurt":
-                old_counter = self.animation_counters["Hurt"]
-                self.animation_counters["Hurt"] = self.animate("Hurt")
+                    self.is_attack2 = False
+            elif self.status == "breath":
+                self.animation_counters["breath"] = self.animate("breath")
+            elif self.status == "hurt":
+                old_counter = self.animation_counters["hurt"]
+                self.animation_counters["hurt"] = self.animate("hurt")
                 # Hasar alma anı (animasyonun ilk karesi değiştiğinde)
-                if old_counter == 0 and self.animation_counters["Hurt"] == 1:
-                    if self.isAttack1:
+                if old_counter == 0 and self.animation_counters["hurt"] == 1:
+                    if self.is_attack1:
                         self.hp -= 1
-                    if self.isAttack2:
+                    if self.is_attack2:
                         self.hp -= 2
                 # Animasyon tamamlandı mı kontrol et
-                if self.animation_counters["Hurt"] == 0:
-                    self.status = "Breath"
+                if self.animation_counters["hurt"] == 0:
+                    self.status = "breath"
                     self.animation = False
-            elif self.status == "Death":
-                self.animation_counters["Death"] = self.animate("Death")
+            elif self.status == "death":
+                self.animation_counters["death"] = self.animate("death")
         else:
-            if self.status == "Breath":
-                self.animation_counters["Breath"] = self.animate("Breath")
+            if self.status == "breath":
+                self.animation_counters["breath"] = self.animate("breath")
                 
     def game_loop(self, player_x, player_is_attack1, player_is_attack2, player_status):
         """Ana oyun döngüsü - daha modüler yapıda"""

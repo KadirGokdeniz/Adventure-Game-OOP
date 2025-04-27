@@ -25,44 +25,44 @@ class Boss(Entity):
         ]
         
         # Saldırı durumları
-        self.isAttack1 = False
-        self.isAttack2 = False
+        self.is_attack1 = False
+        self.is_attack2 = False
         
         # Boss özgü flag'ler
         self.action_mode = False
         self.animation = False
-        self.isDeath = False
-        self.isAttack1 = False
-        self.isAttack2 = False
+        self.is_death = False
+        self.is_attack1 = False
+        self.is_attack2 = False
         
         # Animasyonları yükle
         self.load_animations()
         
     def load_animations(self):
         """Tüm animasyon setlerini yükler"""
-        self.load_animation_set("Breath", "b", 6, 300)
-        self.load_animation_set("Run", "r", 6, 300)
-        self.load_animation_set("AttackMode1", "a1", 8, 350)  # Boss daha güçlü olabilir
-        self.load_animation_set("AttackMode2", "a2", 8, 350)
-        self.load_animation_set("Hurt", "h", 4, 150)
-        self.load_animation_set("Death", "d", 6, 400)  # Daha uzun ölüm animasyonu
+        self.load_animation_set("breath", "b", 6, 300)
+        self.load_animation_set("run", "r", 6, 300)
+        self.load_animation_set("attack_mode1", "a1", 8, 350)  # Boss daha güçlü olabilir
+        self.load_animation_set("attack_mode2", "a2", 8, 350)
+        self.load_animation_set("hurt", "h", 4, 150)
+        self.load_animation_set("death", "d", 6, 400)  # Daha uzun ölüm animasyonu
         
     def draw(self, window, gold1collect=False, gold2collect=False, gold3collect=False):
         """Boss ve altınlarını çizer"""
         # Mevcut duruma göre çizim (demonAxe ile benzer ama daha karmaşık olabilir)
-        if self.status == "Breath":
-            frame = self.animations["Breath"][self.animation_counters["Breath"]]
-        elif self.status == "Run":
-            frame = self.animations["Run"][self.animation_counters["Run"]]
-        elif self.status == "AttackMode1":
-            frame = self.animations["AttackMode1"][self.animation_counters["AttackMode1"]]
-        elif self.status == "AttackMode2":
-            frame = self.animations["AttackMode2"][self.animation_counters["AttackMode2"]]
-        elif self.status == "Hurt":
-            frame = self.animations["Hurt"][self.animation_counters["Hurt"]]
-        elif self.status == "Death":
-            index = min(self.animation_counters["Death"], len(self.animations["Death"]) - 1)
-            frame = self.animations["Death"][index]
+        if self.status == "breath":
+            frame = self.animations["breath"][self.animation_counters["breath"]]
+        elif self.status == "run":
+            frame = self.animations["run"][self.animation_counters["run"]]
+        elif self.status == "attack_mode1":
+            frame = self.animations["attack_mode1"][self.animation_counters["attack_mode1"]]
+        elif self.status == "attack_mode2":
+            frame = self.animations["attack_mode2"][self.animation_counters["attack_mode2"]]
+        elif self.status == "hurt":
+            frame = self.animations["hurt"][self.animation_counters["hurt"]]
+        elif self.status == "death":
+            index = min(self.animation_counters["death"], len(self.animations["death"]) - 1)
+            frame = self.animations["death"][index]
             
             # Ölüm durumunda altınları göster
             if self.isDeath:
@@ -86,12 +86,12 @@ class Boss(Entity):
             
         # Hareket mantığı (Boss daha stratejik hareket edebilir)
         if 0 < self.x - player_x <= 600 and not self.isDeath:
-            self.status = "Run"
+            self.status = "run"
             self.animation = True
             self.action_mode = True
             self.x -= 0.5  # Boss daha yavaş hareket edebilir
         if 200 <= player_x - self.x <= 700 and not self.isDeath:
-            self.status = "Run"
+            self.status = "run"
             self.animation = True
             self.action_mode = True
             self.x += 0.5
@@ -109,27 +109,27 @@ class Boss(Entity):
         
         # Saldırı durumuna geç veya hasar al
         if self.direction == False and player_x - self.x <= attack_distance:
-            if (player_is_attack1 or player_is_attack2) and not self.isDeath:
-                self.status = "Hurt"
+            if (player_is_attack1 or player_is_attack2) and not self.is_death:
+                self.status = "hurt"
                 if self.hp <= 0:
-                    self.status = "Death"
-                    self.isDeath = True
-            if not (player_is_attack1 or player_is_attack2) and not self.isDeath:
+                    self.status = "death"
+                    self.is_death = True
+            if not (player_is_attack1 or player_is_attack2) and not self.is_death:
                 # Boss'un farklı saldırı tipleri arasında rastgele seçim yap
                 import random
-                attack_type = random.choice(["AttackMode1", "AttackMode2"])
+                attack_type = random.choice(["attack_mode1", "attack_mode2"])
                 self.status = attack_type
             self.animation = True
             
         if self.direction == True and player_x - self.x >= 0:
-            if (player_is_attack1 or player_is_attack2) and not self.isDeath:
-                self.status = "Hurt"
+            if (player_is_attack1 or player_is_attack2) and not self.is_death:
+                self.status = "hurt"
                 if self.hp <= 0:
-                    self.status = "Death"
-                    self.isDeath = True
-            if not (player_is_attack1 or player_is_attack2) and not self.isDeath:
+                    self.status = "death"
+                    self.is_death = True
+            if not (player_is_attack1 or player_is_attack2) and not self.is_death:
                 import random
-                attack_type = random.choice(["AttackMode1", "AttackMode2"])
+                attack_type = random.choice(["attack_mode1", "attack_mode2"])
                 self.status = attack_type
             self.animation = True
             
@@ -137,42 +137,42 @@ class Boss(Entity):
         """Animasyon durumunu günceller"""
         # demonAxe ile benzer ancak boss'a özgü özellikler eklenebilir
         if self.action_mode:
-            if self.status == "Run":
-                self.animation_counters["Run"] = self.animate("Run")
-            elif self.status == "AttackMode1":
-                self.animation_counters["AttackMode1"] = self.animate("AttackMode1")
+            if self.status == "run":
+                self.animation_counters["run"] = self.animate("run")
+            elif self.status == "attack_mode1":
+                self.animation_counters["attack_mode1"] = self.animate("attack_mode1")
                 # Saldırı anı tespiti - boss için daha güçlü saldırılar
-                if 3 <= self.animation_counters["AttackMode1"] <= 5:  # Uzun saldırı penceresi
-                    self.isAttack1 = True
+                if 3 <= self.animation_counters["attack_mode1"] <= 5:  # Uzun saldırı penceresi
+                    self.is_attack1 = True
                 else:
-                    self.isAttack1 = False
-            elif self.status == "AttackMode2":
-                self.animation_counters["AttackMode2"] = self.animate("AttackMode2")
+                    self.is_attack1 = False
+            elif self.status == "attack_mode2":
+                self.animation_counters["attack_mode2"] = self.animate("attack_mode2")
                 # Saldırı anı tespiti
-                if 3 <= self.animation_counters["AttackMode2"] <= 5:
-                    self.isAttack2 = True
+                if 3 <= self.animation_counters["attack_mode2"] <= 5:
+                    self.is_attack2 = True
                 else:
-                    self.isAttack2 = False
-            elif self.status == "Breath":
-                self.animation_counters["Breath"] = self.animate("Breath")
-            elif self.status == "Hurt":
-                old_counter = self.animation_counters["Hurt"]
-                self.animation_counters["Hurt"] = self.animate("Hurt")
+                    self.is_attack2 = False
+            elif self.status == "breath":
+                self.animation_counters["breath"] = self.animate("breath")
+            elif self.status == "hurt":
+                old_counter = self.animation_counters["hurt"]
+                self.animation_counters["hurt"] = self.animate("hurt")
                 # Hasar alma anı - boss daha dayanıklı olabilir
-                if old_counter == 0 and self.animation_counters["Hurt"] == 1:
-                    if self.isAttack1:
+                if old_counter == 0 and self.animation_counters["hurt"] == 1:
+                    if self.is_attack1:
                         self.hp -= 1  # Boss normal düşmandan daha az hasar alabilir
-                    if self.isAttack2:
+                    if self.is_attack2:
                         self.hp -= 1
                 # Animasyon tamamlandı mı kontrol et
-                if self.animation_counters["Hurt"] == 0:
-                    self.status = "Breath"
+                if self.animation_counters["hurt"] == 0:
+                    self.status = "breath"
                     self.animation = False
-            elif self.status == "Death":
-                self.animation_counters["Death"] = self.animate("Death")
+            elif self.status == "death":
+                self.animation_counters["death"] = self.animate("death")
         else:
-            if self.status == "Breath":
-                self.animation_counters["Breath"] = self.animate("Breath")
+            if self.status == "breath":
+                self.animation_counters["breath"] = self.animate("breath")
                 
     def game_loop(self, player_x, player_is_attack1, player_is_attack2, player_status):
         """Ana oyun döngüsü - daha modüler yapıda"""

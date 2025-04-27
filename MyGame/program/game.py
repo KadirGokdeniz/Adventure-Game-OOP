@@ -1,52 +1,59 @@
-import pygame 
+# Game.py
+import pygame
 import sys
 sys.path.append("/")
+
+from TestLevel0 import TestLevel0
 from TestLevel1 import TestLevel1
 from TestLevel2 import TestLevel2
-from TestLevel0 import TestLevel0
 from Options import Options
-
-pygame.init()
+from ResourceManager import ResourceManager
 
 class Game:
     def __init__(self):
-        self.height=800
-        self.width=1550
-        self.window=pygame.display.set_mode((self.width,self.height))
+        self.height = 800
+        self.width = 1550
+        self.window = pygame.display.set_mode((self.width, self.height))
         pygame.display.set_caption("My Game")
         
-        self.level_lock="Test Level0"
-        self.UpdateLevel()
-        self.clock=pygame.time.Clock()
-
-    def UpdateLevel(self):
-        if self.level_lock=="Test Level0":
-             self.current_level=TestLevel0(self.width,self.height)
-        elif self.level_lock=="Options":
-            self.current_level=Options(self.width,self.height)
-        elif self.level_lock=="Test Level1":
-            self.current_level=TestLevel1(self.width,self.height)
-        elif self.level_lock=="Test Level2":
-            self.current_level=TestLevel2(self.width,self.height)
-        self.level_lock=None
-
+        # Merkezi ResourceManager oluştur
+        self.resource_manager = ResourceManager()
+        
+        self.level_lock = "Test Level0"
+        self.update_level()
+        self.clock = pygame.time.Clock()
+    
+    def update_level(self):
+        """Level değişikliği gerçekleştiğinde çağrılır"""
+        # Level factory pattern
+        level_factory = {
+            "Test Level0": lambda: TestLevel0(self.width, self.height, self.resource_manager),
+            "Options": lambda: Options(self.width, self.height, self.resource_manager),
+            "Test Level1": lambda: TestLevel1(self.width, self.height, self.resource_manager),
+            "Test Level2": lambda: TestLevel2(self.width, self.height, self.resource_manager)
+        }
+        
+        if self.level_lock in level_factory:
+            self.current_level = level_factory[self.level_lock]()
+        
+        self.level_lock = None
+    
     def draw(self):
-        self.current_level.Draw(self.window)
+        """Aktif level'ı çiz"""
+        self.current_level.draw(self.window)
         pygame.display.update()
-
-    def game_loop(self):     
-        self.key=pygame.key.get_pressed()
+    
+    def game_loop(self):
+        """Ana oyun döngüsü"""
+        self.key = pygame.key.get_pressed()
         for event in pygame.event.get():
-            if event.type==pygame.QUIT:
+            if event.type == pygame.QUIT:
                 return "QUIT"
-        self.Mouse=pygame.mouse.get_pressed()
-        self.level_lock=self.current_level.GameLoop(self.key,self.Mouse)
-        if self.level_lock!=None:
-            self.UpdateLevel()
+                
+        self.mouse = pygame.mouse.get_pressed()
+        self.level_lock = self.current_level.game_loop(self.key, self.mouse)
+        
+        if self.level_lock is not None:
+            self.update_level()
+            
         self.draw()
-
-game=Game()
-while True:
-    game_status= game.game_loop()
-    if game_status is not None:
-        break

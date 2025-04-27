@@ -12,9 +12,9 @@ class Entity:
         
         self.status = "Breath"
         self.direction = False
-        self.isDeath = False
+        self.is_dead = False
 
-        self.resource_manager = ResourceManager()
+        self.resource_manager =  ResourceManager()
         # Animasyon yönetimi
         self.animations = {}
         self.animation_counters = {}
