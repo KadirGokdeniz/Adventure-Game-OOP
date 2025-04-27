@@ -1,238 +1,76 @@
-import pygame
+# Character.py
+from Entity import Entity
 import json
+import pygame
 
-class Character:
-    def __init__(self,level):
-        self.c_x=0
-        self.c_y=550
-        self.level=level
-        self.c_gold=0
-        self.c_hp=10
-        if level==1:
-           self.c_y=550
-           self.Character_Save_Files()
-        elif level ==2:
-            self.c_y=570
-            self.Character_Load_Files()
-        self.c_scale=(200,148)
+class Character(Entity):
+    def __init__(self, level):
+        # Temel sınıf başlatma
+        super().__init__(0, 550, (200, 148), "others\\Character_images\\")
         
-        self.c_status="Breath"
-        self.c_speed=1.25
-        if level!=0:
-            self.c_gold=self.c_dictionary["Gold"]
-            self.c_hp=self.c_dictionary["Hp"]
-
-        self.isAttack11=False
-        self.isAttack12=False
-        self.isAttack13=False
-        self.isAttack21=False
-        self.isAttack22=False
-        self.isAttack23=False
-
-
-        self.c_banimation=0
-        self.c_sanimation=0
-        self.c_ranimation=0
-        self.c_danimation=0
-        self.c_a1animation=0
-        self.c_a2animation=0
-        self.c_janimation=0
-        self.c_fanimation=0
-        self.c_hanimation=0
-        self.c_dthanimation=0
-
-        self.c_time=pygame.time.get_ticks()
-        self.c_time_hurt=pygame.time.get_ticks()
-        self.c_time_jump=pygame.time.get_ticks()
-        self.c_time_fall=pygame.time.get_ticks()
+        self.level = level
+        self.gold = 0
         
-        self.c_rdelay=250
-        self.c_bdelay=250
-        self.c_sdelay=250
-        self.c_ddelay=200
-        self.c_a1delay=150
-        self.c_a2delay=300
-        self.c_jdelay=200
-        self.c_fdelay=200
-        self.c_hdelay=150
-        self.c_dthdelay=300
-        self.c_Path="others\\Character_images\\"
-
-        self.c_action_mode=False
-        self.c_direction=False
-        self.c_animation=False
-        self.c_isAttack1=False
-        self.c_isAttack2=False
-        self.c_isJump=False
-
-        self.isRestart=False
-        self.backMenu=False
-
-        self.bMenu=pygame.image.load("others\\images\\bMenu.png").convert_alpha()
-        self.bMenu=pygame.transform.scale(self.bMenu,(400,62))
-
-        self.defeat=pygame.image.load("others\\images\\defeat.png").convert_alpha()
-        self.defeat=pygame.transform.scale(self.defeat,(400,200))
-
-        self.restart=pygame.image.load("others\\images\\restart.png").convert_alpha()
-        self.restart=pygame.transform.scale(self.restart,(500,75))
-
-        self.c_b1=pygame.image.load(self.c_Path+"b1.png").convert_alpha()
-        self.c_b2=pygame.image.load(self.c_Path+"b2.png").convert_alpha()
-        self.c_b3=pygame.image.load(self.c_Path+"b3.png").convert_alpha()
-        self.c_b4=pygame.image.load(self.c_Path+"b4.png").convert_alpha()
-
-        self.c_b1=pygame.transform.scale(self.c_b1,self.c_scale)
-        self.c_b2=pygame.transform.scale(self.c_b2,self.c_scale)
-        self.c_b3=pygame.transform.scale(self.c_b3,self.c_scale)
-        self.c_b4=pygame.transform.scale(self.c_b4,self.c_scale)
-
-        self.c_s1=pygame.image.load(self.c_Path+"s1.png").convert_alpha()
-        self.c_s2=pygame.image.load(self.c_Path+"s2.png").convert_alpha()
-        self.c_s3=pygame.image.load(self.c_Path+"s3.png").convert_alpha()
-        self.c_s4=pygame.image.load(self.c_Path+"s4.png").convert_alpha()
-
-        self.c_s1=pygame.transform.scale(self.c_s1,self.c_scale)
-        self.c_s2=pygame.transform.scale(self.c_s2,self.c_scale)
-        self.c_s3=pygame.transform.scale(self.c_s3,self.c_scale)
-        self.c_s4=pygame.transform.scale(self.c_s4,self.c_scale)
-
-        self.c_r1=pygame.image.load(self.c_Path+"r1.png").convert_alpha()
-        self.c_r2=pygame.image.load(self.c_Path+"r2.png").convert_alpha()
-        self.c_r3=pygame.image.load(self.c_Path+"r3.png").convert_alpha()
-        self.c_r4=pygame.image.load(self.c_Path+"r4.png").convert_alpha()
-        self.c_r5=pygame.image.load(self.c_Path+"r5.png").convert_alpha()
-        self.c_r6=pygame.image.load(self.c_Path+"r6.png").convert_alpha()
-
-        self.c_r1=pygame.transform.scale(self.c_r1,self.c_scale)
-        self.c_r2=pygame.transform.scale(self.c_r2,self.c_scale)
-        self.c_r3=pygame.transform.scale(self.c_r3,self.c_scale)
-        self.c_r4=pygame.transform.scale(self.c_r4,self.c_scale)
-        self.c_r5=pygame.transform.scale(self.c_r5,self.c_scale)
-        self.c_r6=pygame.transform.scale(self.c_r6,self.c_scale)
-
-        self.c_d1=pygame.image.load(self.c_Path+"d1.png").convert_alpha()
-        self.c_d2=pygame.image.load(self.c_Path+"d2.png").convert_alpha()
-        self.c_d3=pygame.image.load(self.c_Path+"d3.png").convert_alpha()
-        self.c_d4=pygame.image.load(self.c_Path+"d4.png").convert_alpha()
-
-        self.c_d1=pygame.transform.scale(self.c_r1,self.c_scale)
-        self.c_d2=pygame.transform.scale(self.c_d2,self.c_scale)
-        self.c_d3=pygame.transform.scale(self.c_d3,self.c_scale)
-        self.c_d4=pygame.transform.scale(self.c_d4,self.c_scale)
-
-        self.c_attackmode_1_1=pygame.image.load(self.c_Path+"a11.png").convert_alpha()
-        self.c_attackmode_1_2=pygame.image.load(self.c_Path+"a12.png").convert_alpha()
-        self.c_attackmode_1_3=pygame.image.load(self.c_Path+"a13.png").convert_alpha()
-        self.c_attackmode_1_4=pygame.image.load(self.c_Path+"a14.png").convert_alpha()
-        self.c_attackmode_1_5=pygame.image.load(self.c_Path+"a15.png").convert_alpha()
-
-        self.c_attackmode_1_1=pygame.transform.scale(self.c_attackmode_1_1,self.c_scale)
-        self.c_attackmode_1_2=pygame.transform.scale(self.c_attackmode_1_2,self.c_scale)
-        self.c_attackmode_1_3=pygame.transform.scale(self.c_attackmode_1_3,self.c_scale)
-        self.c_attackmode_1_4=pygame.transform.scale(self.c_attackmode_1_4,self.c_scale)
-        self.c_attackmode_1_5=pygame.transform.scale(self.c_attackmode_1_5,self.c_scale)
-
-        self.c_attackmode_2_1=pygame.image.load(self.c_Path+"a21.png").convert_alpha()
-        self.c_attackmode_2_2=pygame.image.load(self.c_Path+"a22.png").convert_alpha()
-        self.c_attackmode_2_3=pygame.image.load(self.c_Path+"a23.png").convert_alpha()
-        self.c_attackmode_2_4=pygame.image.load(self.c_Path+"a24.png").convert_alpha()
-        self.c_attackmode_2_5=pygame.image.load(self.c_Path+"a25.png").convert_alpha()
-        self.c_attackmode_2_6=pygame.image.load(self.c_Path+"a26.png").convert_alpha()
-
-        self.c_attackmode_2_1=pygame.transform.scale(self.c_attackmode_2_1,self.c_scale)
-        self.c_attackmode_2_2=pygame.transform.scale(self.c_attackmode_2_2,self.c_scale)
-        self.c_attackmode_2_3=pygame.transform.scale(self.c_attackmode_2_3,self.c_scale)
-        self.c_attackmode_2_4=pygame.transform.scale(self.c_attackmode_2_4,self.c_scale)
-        self.c_attackmode_2_5=pygame.transform.scale(self.c_attackmode_2_5,self.c_scale)
-        self.c_attackmode_2_6=pygame.transform.scale(self.c_attackmode_2_6,self.c_scale)
-
-        self.c_j1=pygame.image.load(self.c_Path+"j1.png").convert_alpha()
-        self.c_j2=pygame.image.load(self.c_Path+"j2.png").convert_alpha()
-        self.c_j3=pygame.image.load(self.c_Path+"j3.png").convert_alpha()
-        self.c_j4=pygame.image.load(self.c_Path+"j4.png").convert_alpha()
-
-        self.c_f1=pygame.image.load(self.c_Path+"f1.png").convert_alpha()
-        self.c_f2=pygame.image.load(self.c_Path+"f2.png").convert_alpha()
-
-        self.c_j1=pygame.transform.scale(self.c_j1,self.c_scale)
-        self.c_j2=pygame.transform.scale(self.c_j2,self.c_scale)
-        self.c_j3=pygame.transform.scale(self.c_j3,self.c_scale)
-        self.c_j4=pygame.transform.scale(self.c_j4,self.c_scale)
-
-        self.c_f1=pygame.transform.scale(self.c_f1,self.c_scale)
-        self.c_f2=pygame.transform.scale(self.c_f2,self.c_scale)
+        # Level kontrolleri
+        if level == 1:
+            self.character_save_files()
+        elif level == 2:
+            self.character_load_files()
+            self.y = 570
+            
+        if level != 0:
+            self.gold = self.character_data["Gold"]
+            self.hp = self.character_data["Hp"]
         
-        self.c_h1=pygame.image.load(self.c_Path+"h1.png").convert_alpha()
-        self.c_h2=pygame.image.load(self.c_Path+"h2.png").convert_alpha()
-        self.c_h3=pygame.image.load(self.c_Path+"h3.png").convert_alpha()
-
-        self.c_h1=pygame.transform.scale(self.c_h1,self.c_scale)
-        self.c_h2=pygame.transform.scale(self.c_h2,self.c_scale)
-        self.c_h3=pygame.transform.scale(self.c_h3,self.c_scale)
-
-        self.c_dth1=pygame.image.load(self.c_Path+"dth1.png").convert_alpha()
-        self.c_dth2=pygame.image.load(self.c_Path+"dth2.png").convert_alpha()
-        self.c_dth3=pygame.image.load(self.c_Path+"dth3.png").convert_alpha()
-        self.c_dth4=pygame.image.load(self.c_Path+"dth4.png").convert_alpha()
-        self.c_dth5=pygame.image.load(self.c_Path+"dth5.png").convert_alpha()
-        self.c_dth6=pygame.image.load(self.c_Path+"dth6.png").convert_alpha()
-
-        self.c_dth1=pygame.transform.scale(self.c_dth1,self.c_scale)
-        self.c_dth2=pygame.transform.scale(self.c_dth2,self.c_scale)
-        self.c_dth3=pygame.transform.scale(self.c_dth3,self.c_scale)
-        self.c_dth4=pygame.transform.scale(self.c_dth4,self.c_scale)
-        self.c_dth5=pygame.transform.scale(self.c_dth5,self.c_scale)
-        self.c_dth6=pygame.transform.scale(self.c_dth6,self.c_scale)
-
-        self.c_breath=[self.c_b1,self.c_b2,self.c_b3,self.c_b4]
-        self.c_sword=[self.c_s1,self.c_s2,self.c_s3,self.c_s4]
-        self.c_run=[self.c_r1,self.c_r2,self.c_r3,self.c_r4,self.c_r5,self.c_r6]
-        self.c_drawSword=[self.c_d1,self.c_d2,self.c_d3,self.c_d4]
-        self.c_backSword=[self.c_d4,self.c_d3,self.c_d2,self.c_d1]
-        self.c_attack_mode_1_list=[self.c_attackmode_1_1,self.c_attackmode_1_2,self.c_attackmode_1_3,self.c_attackmode_1_4,self.c_attackmode_1_5]
-        self.c_attack_mode_2_list=[self.c_attackmode_2_1,self.c_attackmode_2_2,self.c_attackmode_2_3,self.c_attackmode_2_4,self.c_attackmode_2_5,self.c_attackmode_2_6]
-        self.c_jump_list=[self.c_j1,self.c_j2,self.c_j3,self.c_j4]
-        self.c_fall_list=[self.c_f1,self.c_f2]
-        self.c_hurt_list=[self.c_h1,self.c_h2,self.c_h3]
-        self.c_death_list=[self.c_dth1,self.c_dth2,self.c_dth3,self.c_dth4,self.c_dth5,self.c_dth6]
-
-    def Draw(self,window):
-        if self.c_status=="Breath":
-            window.blit(pygame.transform.flip(self.c_breath[self.c_banimation],self.c_direction,False),(self.c_x,self.c_y))
-        elif self.c_status=="Sword":
-            window.blit(pygame.transform.flip(self.c_sword[self.c_sanimation],self.c_direction,False),(self.c_x,self.c_y))
-        elif self.c_status=="Run":
-            window.blit(pygame.transform.flip(self.c_run[self.c_ranimation],self.c_direction,False),(self.c_x,self.c_y))
-        elif self.c_status=="DrawSword":
-            window.blit(pygame.transform.flip(self.c_drawSword[self.c_danimation],self.c_direction,False),(self.c_x,self.c_y))
-        elif self.c_status=="BackSword":
-            window.blit(pygame.transform.flip(self.c_backSword[self.c_danimation],self.c_direction,False),(self.c_x,self.c_y))
-        elif self.c_status=="AttackMode1":
-            window.blit(pygame.transform.flip(self.c_attack_mode_1_list[self.c_a1animation],self.c_direction,False),(self.c_x,self.c_y))
-        elif self.c_status=="AttackMode2":
-            window.blit(pygame.transform.flip(self.c_attack_mode_2_list[self.c_a2animation],self.c_direction,False),(self.c_x,self.c_y))
-        elif self.c_status=="Fall":
-            window.blit(pygame.transform.flip(self.c_fall_list[self.c_fanimation],self.c_direction,False),(self.c_x,self.c_y))
-        elif self.c_status=="Jump":
-            window.blit(pygame.transform.flip(self.c_jump_list[self.c_janimation],self.c_direction,False),(self.c_x,self.c_y))
-        elif self.c_status=="Hurt":
-            window.blit(pygame.transform.flip(self.c_hurt_list[self.c_hanimation],self.c_direction,False),(self.c_x,self.c_y))
-        elif self.c_status=="Death":
-            if self.c_dthanimation>=6:
-                window.blit(pygame.transform.flip(self.c_death_list[5],self.c_direction,False),(self.c_x,self.c_y))
-                window.blit(self.defeat,(550,266))
-                window.blit(self.restart,(500,500))
-                window.blit(self.bMenu,(540,600))
-            else:
-                window.blit(pygame.transform.flip(self.c_death_list[self.c_dthanimation],self.c_direction,False),(self.c_x,self.c_y))
+        # Karakter özel değişkenleri
+        self.speed = 1.25
+        self.action_mode = False
+        self.animation = False
+        self.isAttack1 = False
+        self.isAttack2 = False
+        self.isJump = False
+        
+        # Düşman saldırı durumları
+        self.isAttack11 = False
+        self.isAttack12 = False
+        self.isAttack13 = False
+        self.isAttack21 = False
+        self.isAttack22 = False
+        self.isAttack23 = False
+        
+        # UI elemanları yükleme
+        self.bMenu = pygame.image.load("others\\images\\bMenu.png").convert_alpha()
+        self.bMenu = pygame.transform.scale(self.bMenu, (400, 62))
+        self.defeat = pygame.image.load("others\\images\\defeat.png").convert_alpha()
+        self.defeat = pygame.transform.scale(self.defeat, (400, 200))
+        self.restart = pygame.image.load("others\\images\\restart.png").convert_alpha()
+        self.restart = pygame.transform.scale(self.restart, (500, 75))
+        
+        # Animasyonları yükleme
+        self.load_animations()
     
-    def Character_Save_Files(self):
-        self.c_dictionary= {"Gold":self.c_gold, "Hp":self.c_hp}
-        json.dump(self.c_dictionary,open("others\\CharacterData.txt","w"))
+    def load_animations(self):
+        """Tüm animasyon setlerini yükler"""
+        self.load_animation_set("Breath", "b", 4, 250)
+        self.load_animation_set("Sword", "s", 4, 250)
+        self.load_animation_set("Run", "r", 6, 250)
+        self.load_animation_set("DrawSword", "d", 4, 200)
+        self.load_animation_set("BackSword", "d", 4, 200)  # Ters sıralamayı logic'te yapacağız
+        self.load_animation_set("AttackMode1", "a1", 5, 150)
+        self.load_animation_set("AttackMode2", "a2", 6, 300)
+        self.load_animation_set("Jump", "j", 4, 200)
+        self.load_animation_set("Fall", "f", 2, 200)
+        self.load_animation_set("Hurt", "h", 3, 150)
+        self.load_animation_set("Death", "dth", 6, 300)
 
-    def Character_Load_Files(self):
-        self.c_dictionary=json.load(open("others\\CharacterData.txt","r"))
+    def character_save_files(self):
+        """Karakter durumunu kaydeder"""
+        self.character_data = {"Gold": self.gold, "Hp": self.hp}
+        json.dump(self.character_data, open("others\\CharacterData.txt", "w"))
+
+    def character_load_files(self):
+        """Karakter durumunu yükler"""
+        self.character_data = json.load(open("others\\CharacterData.txt", "r"))
 
     def Animation(self, Delay, animation_Number, limit_of_the_animation,condition=False,action_mode_end=False,status_mode_end="Breath"):
         if pygame.time.get_ticks()-self.c_time>Delay:
