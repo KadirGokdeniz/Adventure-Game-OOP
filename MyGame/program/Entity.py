@@ -10,17 +10,17 @@ class Entity:
         self.path = path
         self.hp = hp
         
-        self.status = "Breath"
+        self.status = "breath"  # Standardize edilmiş küçük harfle
         self.direction = False
         self.is_dead = False
-
-        self.resource_manager =  ResourceManager()
+        self.resource_manager = ResourceManager()
+        
         # Animasyon yönetimi
         self.animations = {}
         self.animation_counters = {}
         self.animation_delays = {}
         self.last_update = pygame.time.get_ticks()
-        
+    
     def load_animation_set(self, name, prefix, count, delay):
         """Bir animasyon seti yükler ve yapılandırır"""
         frames = []
