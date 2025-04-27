@@ -65,7 +65,7 @@ class Boss(Entity):
             frame = self.animations["death"][index]
             
             # Ölüm durumunda altınları göster
-            if self.isDeath:
+            if self.is_death:
                 if not gold1collect:
                     window.blit(self.coins[0]["image"], (self.coins[0]["pos"][0], self.coins[0]["pos"][1]))
                 if not gold2collect:
@@ -79,18 +79,18 @@ class Boss(Entity):
     def handle_movement(self, player_x):
         """Oyuncuya göre hareket mantığı - boss için daha karmaşık olabilir"""
         # Yön belirleme
-        if player_x > self.x + 200 and not self.isDeath:
+        if player_x > self.x + 200 and not self.is_death:
             self.direction = False
-        if player_x < self.x + 200 and not self.isDeath:
+        if player_x < self.x + 200 and not self.is_death:
             self.direction = True
             
         # Hareket mantığı (Boss daha stratejik hareket edebilir)
-        if 0 < self.x - player_x <= 600 and not self.isDeath:
+        if 0 < self.x - player_x <= 600 and not self.is_death:
             self.status = "run"
             self.animation = True
             self.action_mode = True
             self.x -= 0.5  # Boss daha yavaş hareket edebilir
-        if 200 <= player_x - self.x <= 700 and not self.isDeath:
+        if 200 <= player_x - self.x <= 700 and not self.is_death:
             self.status = "run"
             self.animation = True
             self.action_mode = True
@@ -100,9 +100,9 @@ class Boss(Entity):
         """Saldırı ve hasar mantığı - boss için daha karmaşık"""
         # Oyuncudan gelen saldırıları işle
         if player_is_attack1:
-            self.isAttack1 = True
+            self.is_attack1 = True
         if player_is_attack2:
-            self.isAttack2 = True
+            self.is_attack2 = True
             
         # Boss'un saldırı mesafesi daha uzun olabilir
         attack_distance = 200
@@ -190,7 +190,7 @@ class Boss(Entity):
         
     def update_coin_positions(self):
         """Altın pozisyonlarını Boss pozisyonuna göre günceller"""
-        if self.isDeath:
+        if self.is_death:
             self.coins[0]["pos"][0] = self.x + 168
             self.coins[1]["pos"][0] = self.x + 268
             self.coins[2]["pos"][0] = self.x + 368

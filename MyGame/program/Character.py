@@ -26,9 +26,9 @@ class Character(Entity):
         self.speed = 1.25
         self.action_mode = False
         self.animation = False
-        self.isAttack1 = False
-        self.isAttack2 = False
-        self.isJump = False
+        self.is_attack1 = False
+        self.is_attack2 = False
+        self.is_jump = False
         
         # Düşman saldırı durumları
         self.is_attack11 = False
@@ -115,22 +115,22 @@ class Character(Entity):
             self.c_time=pygame.time.get_ticks()
         return animation_Number
 
-    def game_loop(self,key,mouse,is_victory,is_attack11,is_attack12,is_attack21,is_attack22,isAttack31,isAttack32):
+    def game_loop(self,key,mouse,is_victory,is_attack11,is_attack12,is_attack21,is_attack22,is_attack31,is_attack32):
         ##Action
         self.key=key
         self.mouse=mouse
 
-        if is_attack11 and is_attack21 and isAttack31:
+        if is_attack11 and is_attack21 and is_attack31:
             self.is_attack13=True
-        if (is_attack11 and is_attack21 and  not isAttack31)or (is_attack11 and not is_attack21 and isAttack31) or (not is_attack11 and is_attack21 and isAttack31):
+        if (is_attack11 and is_attack21 and  not is_attack31)or (is_attack11 and not is_attack21 and is_attack31) or (not is_attack11 and is_attack21 and is_attack31):
             self.is_attack12=True
-        if (is_attack11 and not is_attack21 and  not isAttack31)or (not is_attack11 and not is_attack21 and isAttack31) or (not is_attack11 and is_attack21 and not isAttack31):
+        if (is_attack11 and not is_attack21 and  not is_attack31)or (not is_attack11 and not is_attack21 and is_attack31) or (not is_attack11 and is_attack21 and not is_attack31):
             self.is_attack11=True
-        if is_attack12 and is_attack22 and isAttack32:
+        if is_attack12 and is_attack22 and is_attack32:
             self._a=True
-        if (is_attack12 and is_attack22 and  not isAttack32)or (is_attack12 and not is_attack22 and isAttack32) or (not is_attack12 and is_attack22 and isAttack32):
+        if (is_attack12 and is_attack22 and  not is_attack32)or (is_attack12 and not is_attack22 and is_attack32) or (not is_attack12 and is_attack22 and is_attack32):
             self._a=True
-        if (is_attack12 and not is_attack22 and  not isAttack32)or (not is_attack12 and not is_attack22 and isAttack32) or (not is_attack12 and is_attack22 and not isAttack32):
+        if (is_attack12 and not is_attack22 and  not is_attack32)or (not is_attack12 and not is_attack22 and is_attack32) or (not is_attack12 and is_attack22 and not is_attack32):
             self._a=True
 
         if self.key[pygame.K_d] and self.c_status!="death" and not is_victory :
@@ -166,7 +166,7 @@ class Character(Entity):
             self.c_status="attack_mode1"
             self.c_animation=True
 
-        elif self.c_status!="death"and not is_victory and (is_attack11 or is_attack12 or is_attack21 or is_attack22 or isAttack31 or isAttack32):
+        elif self.c_status!="death"and not is_victory and (is_attack11 or is_attack12 or is_attack21 or is_attack22 or is_attack31 or is_attack32):
             self.c_status="hurt"
             if self.c_hp<=0:
                 self.c_status="death"

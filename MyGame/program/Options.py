@@ -32,7 +32,7 @@ class Options:
         self.charactera1=Character(0)
         self.charactera2=Character(0)
 
-    def Draw(self,window):
+    def draw(self,window):
         window.blit(self.background,(0,0))
 
         window.blit(self.controller,(500,20))
@@ -45,15 +45,15 @@ class Options:
         window.blit(self.r2,(200,600))
         window.blit(self.backspace,(800,600))
 
-        self.charactera.Draw(window)
-        self.characterd.Draw(window)
-        self.characterr1.Draw(window)
-        self.characterr2.Draw(window)
-        self.characters.Draw(window)
-        self.charactera1.Draw(window)
-        self.charactera2.Draw(window)
+        self.charactera.draw(window)
+        self.characterd.draw(window)
+        self.characterr1.draw(window)
+        self.characterr2.draw(window)
+        self.characters.draw(window)
+        self.charactera1.draw(window)
+        self.charactera2.draw(window)
 
-    def GameLoop(self,key,mouse):
+    def game_loop(self,key,mouse):
         self.key=key
 
         self.charactera.c_y=100

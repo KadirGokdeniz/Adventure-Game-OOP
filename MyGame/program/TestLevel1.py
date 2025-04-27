@@ -3,7 +3,7 @@ from Level import Level
 import pygame
 from Character import Character
 from demonAxe import DemonAxe
-
+from ResourceManager import ResourceManager as resource_manager
 class TestLevel1:
     """Birinci oyun seviyesi"""
     
@@ -155,20 +155,20 @@ class TestLevel1:
         # Karakter ve düşmanları çiz
         self.character.draw(window)
         if not self.gold1_collect:
-            self.demon_axe1.Draw(window)
+            self.demon_axe1.draw(window)
         # ... diğer çizim mantığı
         if self.demon_axe1.is_death==True:
             if not self.gold2_collect:
-                self.demon_axe2.Draw(window)
+                self.demon_axe2.draw(window)
             if not self.gold3_collect:
-                self.demon_axe3.Draw(window)
+                self.demon_axe3.draw(window)
             if self.demon_axe2.is_death==True and self.demon_axe3._==True:
                 if not self.gold4_collect:
-                    self.demon_axe4.Draw(window)
+                    self.demon_axe4.draw(window)
                 if not self.gold5_collect:
-                    self.demon_axe5.Draw(window)
+                    self.demon_axe5.draw(window)
                 if not self.gold6_collect:
-                    self.demon_axe6.Draw(window)
+                    self.demon_axe6.draw(window)
 
     def game_loop(self,key,mouse):
         """Oyun mantığını işle"""

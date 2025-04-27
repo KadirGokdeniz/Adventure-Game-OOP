@@ -85,7 +85,7 @@ class TestLevel2:
 
         self.gold = self.resource_manager.load_image(self.path1+"gold.jpg",(60,35))
 
-    def Draw(self,window):
+    def draw(self,window):
         window.blit(self.background,(0,0))
         if self.character.c_hp==10:
             window.blit(self.hp10,(40,30))
@@ -179,19 +179,19 @@ class TestLevel2:
         if self.Boss.b_hp<=0:
             window.blit(self.hpb0,(1250,730))
 
-        self.character.Draw(window)
+        self.character.draw(window)
         if self.character.c_x>=1400 and self.character.c_gold>=90:
-            self.character.character_Save_Files()
+            self.character.character_save_files()
             window.blit(self.victory,(550,266))
             self.is_victory=True
             window.blit(self.character.bMenu,(540,600))
             window.blit(self.character.restart,(500,500))
-        self.Boss.Draw(window,self.gold1_collect,self.gold2_collect,self.gold3_collect)
+        self.Boss.draw(window,self.gold1_collect,self.gold2_collect,self.gold3_collect)
             
-    def GameLoop(self,key,mouse):
+    def game_loop(self,key,mouse):
         self.key=key
-        self.character.GameLoop(key,mouse,self.is_victory,self.Boss.is_attack1,self.Boss.is_attack2,False,False,False,False)
-        self.Boss.GameLoop(self.character.c_x,self.character.c_is_attack1,self.character.c_is_attack2,self.character.c_status)
+        self.character.game_loop(key,mouse,self.is_victory,self.Boss.is_attack1,self.Boss.is_attack2,False,False,False,False)
+        self.Boss.game_loop(self.character.c_x,self.character.c_is_attack1,self.character.c_is_attack2,self.character.c_status)
         if (self.character.get_Rect()).colliderect(self.Boss.b_x+168,607,30,30) and self.Boss.is_death==True and self.gold1_collect==False:
             self.character.c_gold+=10
             self.gold1_collect=True
