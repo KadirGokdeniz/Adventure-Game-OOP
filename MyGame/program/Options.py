@@ -3,35 +3,25 @@ from Character import Character
 
 class Options:
     def __init__(self,windows_width,windows_height):
-        self.background=pygame.image.load("others\\TestLevels0\\background0.png").convert_alpha()
-        self.background=pygame.transform.scale(self.background,(windows_width,windows_height))
+        self.background = self.resource_manager.load_image("others\\TestLevels0\\background0.png", (windows_width,windows_height))
 
-        self.controller=pygame.image.load("others\\images\\controller.png").convert_alpha()
-        self.controller=pygame.transform.scale(self.controller,(450,72))
+        self.controller = self.resource_manager.load_image("others\\images\\controller.png", (450,72))
 
-        self.a=pygame.image.load("others\\images\\a.png").convert_alpha()
-        self.a=pygame.transform.scale(self.a,(180,72))
+        self.a = self.resource_manager.load_image("others\\images\\a.png", (450,72))
 
-        self.d=pygame.image.load("others\\images\\d.png").convert_alpha()
-        self.d=pygame.transform.scale(self.d,(180,72))
+        self.d = self.resource_manager.load_image("others\\images\\d.png", (180,72))
 
-        self.left=pygame.image.load("others\\images\\left.png").convert_alpha()
-        self.left=pygame.transform.scale(self.left,(280,50))
+        self.left = self.resource_manager.load_image("others\\images\\left.png", (280,50))
 
-        self.right=pygame.image.load("others\\images\\right.png").convert_alpha()
-        self.right=pygame.transform.scale(self.right,(280,72))
+        self.right = self.resource_manager.load_image("others\\images\\right.png", (280,72))
 
-        self.space=pygame.image.load("others\\images\\space.png").convert_alpha()
-        self.space=pygame.transform.scale(self.space,(280,72))
+        self.space = self.resource_manager.load_image("others\\images\\space.png", (280,72))
 
-        self.r1=pygame.image.load("others\\images\\r1.png").convert_alpha()
-        self.r1=pygame.transform.scale(self.r1,(430,72))
+        self.r1 = self.resource_manager.load_image("others\\images\\r1.png", (430,72))
 
-        self.r2=pygame.image.load("others\\images\\r2.png").convert_alpha()
-        self.r2=pygame.transform.scale(self.r2,(530,72))
+        self.r2 = self.resource_manager.load_image("others\\images\\r2.png", (530,72))
 
-        self.backspace=pygame.image.load("others\\images\\backspace.png").convert_alpha()
-        self.backspace=pygame.transform.scale(self.backspace,(580,72))
+        self.backspace= self.resource_manager.load_image("others\\images\\backspace.png", (580,72))
 
 
         self.Charactera=Character(0)

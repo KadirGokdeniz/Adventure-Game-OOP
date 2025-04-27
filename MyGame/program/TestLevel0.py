@@ -2,14 +2,11 @@ import pygame
 
 class TestLevel0:
     def __init__(self,windows_width,windows_height):
-        self.background=pygame.image.load("others\\TestLevels0\\background0.png").convert_alpha()
-        self.background=pygame.transform.scale(self.background,(windows_width,windows_height))
+        self.background = self.resource_manager.load_image("others\\TestLevels0\\background0.png",(windows_width,windows_height))
 
-        self.start=pygame.image.load("others\\images\\start.png").convert_alpha()
-        self.start=pygame.transform.scale(self.start,(600,80))
+        self.start = self.resource_manager.load_image("others\\images\\start.png",(600,80))
 
-        self.controllers=pygame.image.load("others\\images\\controllers.png").convert_alpha()
-        self.controllers=pygame.transform.scale(self.controllers,(600,80))
+        self.controllers = self.resource_manager.load_image("others\\images\\controllers.png",(600,80))
 
     def Draw(self,window):
         window.blit(self.background,(0,0))

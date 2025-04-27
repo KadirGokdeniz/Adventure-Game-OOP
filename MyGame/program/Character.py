@@ -39,12 +39,9 @@ class Character(Entity):
         self.isAttack23 = False
         
         # UI elemanları yükleme
-        self.bMenu = pygame.image.load("others\\images\\bMenu.png").convert_alpha()
-        self.bMenu = pygame.transform.scale(self.bMenu, (400, 62))
-        self.defeat = pygame.image.load("others\\images\\defeat.png").convert_alpha()
-        self.defeat = pygame.transform.scale(self.defeat, (400, 200))
-        self.restart = pygame.image.load("others\\images\\restart.png").convert_alpha()
-        self.restart = pygame.transform.scale(self.restart, (500, 75))
+        self.bMenu = self.resource_manager.load_image("others\\images\\bMenu.png", (400, 62))
+        self.defeat = self.resource_manager.load_image("others\\images\\defeat.png", (400, 62))
+        self.restart = self.resource_manager.load_image("others\\images\\restart.png",(500, 75))
         
         # Animasyonları yükleme
         self.load_animations()

@@ -19,105 +19,72 @@ class TestLevel2:
         self.victory=pygame.image.load(self.path2+"victory.png").convert_alpha()
         self.victory=pygame.transform.scale(self.victory,(400,200))
 
-        self.hp10=pygame.image.load(self.path2+"h10.jpg").convert_alpha()
-        self.hp10=pygame.transform.scale(self.hp10,(200,50))
+        self.hp10 = self.resource_manager.load_image(self.path1+"h10.jpg",(200,50))
 
-        self.hp9=pygame.image.load(self.path2+"h9.jpg").convert_alpha()
-        self.hp9=pygame.transform.scale(self.hp9,(200,50))
+        self.hp9 = self.resource_manager.load_image(self.path1+"h9.jpg",(200,50))
 
-        self.hp8=pygame.image.load(self.path2+"h8.jpg").convert_alpha()
-        self.hp8=pygame.transform.scale(self.hp8,(200,50))
+        self.hp8 = self.resource_manager.load_image(self.path1+"h8.jpg",(200,50))
 
-        self.hp7=pygame.image.load(self.path2+"h7.jpg").convert_alpha()
-        self.hp7=pygame.transform.scale(self.hp7,(200,50))
+        self.hp7 = self.resource_manager.load_image(self.path1+"h7.jpg",(200,50))
 
-        self.hp6=pygame.image.load(self.path2+"h6.jpg").convert_alpha()
-        self.hp6=pygame.transform.scale(self.hp6,(200,50))
+        self.hp6 = self.resource_manager.load_image(self.path1+"h6.jpg",(200,50))
 
-        self.hp5=pygame.image.load(self.path2+"h5.jpg").convert_alpha()
-        self.hp5=pygame.transform.scale(self.hp5,(200,50))
+        self.hp5 = self.resource_manager.load_image(self.path1+"h5.jpg",(200,50))
 
-        self.hp4=pygame.image.load(self.path2+"h4.jpg").convert_alpha()
-        self.hp4=pygame.transform.scale(self.hp4,(200,50))
+        self.hp4 = self.resource_manager.load_image(self.path1+"h4.jpg",(200,50))
 
-        self.hp3=pygame.image.load(self.path2+"h3.jpg").convert_alpha()
-        self.hp3=pygame.transform.scale(self.hp3,(200,50))
+        self.hp3 = self.resource_manager.load_image(self.path1+"h3.jpg",(200,50))
 
-        self.hp2=pygame.image.load(self.path2+"h2.jpg").convert_alpha()
-        self.hp2=pygame.transform.scale(self.hp2,(200,50))
+        self.hp2 = self.resource_manager.load_image(self.path1+"h2.jpg",(200,50))
 
-        self.hp1=pygame.image.load(self.path2+"h1.jpg").convert_alpha()
-        self.hp1=pygame.transform.scale(self.hp1,(200,50))
+        self.hp1 = self.resource_manager.load_image(self.path1+"h1.jpg",(200,50))
 
-        self.hp0=pygame.image.load(self.path2+"h0.jpg").convert_alpha()
-        self.hp0=pygame.transform.scale(self.hp0,(200,50))
+        self.hp0 = self.resource_manager.load_image(self.path1+"h0.jpg",(200,50))
 
-        self.hpb10=pygame.image.load(self.path2+"hb10.jpg").convert_alpha()
-        self.hpb10=pygame.transform.scale(self.hpb10,(250,50))
+        self.hpb10 = self.resource_manager.load_image(self.path1+"hb10.jpg",(200,50))
 
-        self.hpb9=pygame.image.load(self.path2+"hb9.jpg").convert_alpha()
-        self.hpb9=pygame.transform.scale(self.hpb9,(250,50))
+        self.hpb9 = self.resource_manager.load_image(self.path1+"hb9.jpg",(200,50))
 
-        self.hpb8=pygame.image.load(self.path2+"hb8.jpg").convert_alpha()
-        self.hpb8=pygame.transform.scale(self.hpb8,(250,50))
+        self.hpb8 = self.resource_manager.load_image(self.path1+"hb8.jpg",(200,50))
 
-        self.hpb7=pygame.image.load(self.path2+"hb7.jpg").convert_alpha()
-        self.hpb7=pygame.transform.scale(self.hpb7,(250,50))
+        self.hpb7 = self.resource_manager.load_image(self.path1+"hb7.jpg",(200,50))
 
-        self.hpb6=pygame.image.load(self.path2+"hb6.jpg").convert_alpha()
-        self.hpb6=pygame.transform.scale(self.hpb6,(250,50))
+        self.hpb6 = self.resource_manager.load_image(self.path1+"hb6.jpg",(200,50))
 
-        self.hpb5=pygame.image.load(self.path2+"hb5.jpg").convert_alpha()
-        self.hpb5=pygame.transform.scale(self.hpb5,(250,50))
+        self.hpb5 = self.resource_manager.load_image(self.path1+"hb5.jpg",(200,50))
 
-        self.hpb4=pygame.image.load(self.path2+"hb4.jpg").convert_alpha()
-        self.hpb4=pygame.transform.scale(self.hpb4,(250,50))
+        self.hpb4 = self.resource_manager.load_image(self.path1+"hb4.jpg",(200,50))
 
-        self.hpb3=pygame.image.load(self.path2+"hb3.jpg").convert_alpha()
-        self.hpb3=pygame.transform.scale(self.hpb3,(250,50))
+        self.hpb3 = self.resource_manager.load_image(self.path1+"hb3.jpg",(200,50))
 
-        self.hpb2=pygame.image.load(self.path2+"hb2.jpg").convert_alpha()
-        self.hpb2=pygame.transform.scale(self.hpb2,(250,50))
+        self.hpb2 = self.resource_manager.load_image(self.path1+"hb2.jpg",(200,50))
 
-        self.hpb1=pygame.image.load(self.path2+"hb1.jpg").convert_alpha()
-        self.hpb1=pygame.transform.scale(self.hpb1,(250,50))
+        self.hpb1 = self.resource_manager.load_image(self.path1+"hb1.jpg",(200,50))
 
-        self.hpb0=pygame.image.load(self.path2+"hb0.jpg").convert_alpha()
-        self.hpb0=pygame.transform.scale(self.hpb0,(250,50))
+        self.hpb0 = self.resource_manager.load_image(self.path1+"hb0.jpg",(200,50))
 
-        self._0=pygame.image.load(self.path2+"0.png").convert_alpha()
-        self._0=pygame.transform.scale(self._0,(20,30))
+        self._0 = self.resource_manager.load_image(self.path1+"0.jpg",(200,50))
 
-        self._1=pygame.image.load(self.path2+"1.png").convert_alpha()
-        self._1=pygame.transform.scale(self._1,(20,30))
+        self._1 = self.resource_manager.load_image(self.path1+"1.jpg",(200,50))
 
-        self._2=pygame.image.load(self.path2+"2.png").convert_alpha()
-        self._2=pygame.transform.scale(self._2,(20,30))
+        self._2 = self.resource_manager.load_image(self.path1+"2.jpg",(200,50))
 
-        self._3=pygame.image.load(self.path2+"3.png").convert_alpha()
-        self._3=pygame.transform.scale(self._3,(20,30))
+        self._3 = self.resource_manager.load_image(self.path1+"3.jpg",(200,50))
 
-        self._4=pygame.image.load(self.path2+"4.png").convert_alpha()
-        self._4=pygame.transform.scale(self._4,(20,30))
+        self._4 = self.resource_manager.load_image(self.path1+"4.jpg",(200,50))
 
-        self._5=pygame.image.load(self.path2+"5.png").convert_alpha()
-        self._5=pygame.transform.scale(self._5,(20,30))
+        self._5 = self.resource_manager.load_image(self.path1+"5.jpg",(200,50))
 
-        self._6=pygame.image.load(self.path2+"6.png").convert_alpha()
-        self._6=pygame.transform.scale(self._6,(20,30))
+        self._6 = self.resource_manager.load_image(self.path1+"6.jpg",(200,50))
 
-        self._7=pygame.image.load(self.path2+"7.png").convert_alpha()
-        self._7=pygame.transform.scale(self._7,(20,30))
+        self._7 = self.resource_manager.load_image(self.path1+"7.jpg",(200,50))
 
-        self._8=pygame.image.load(self.path2+"8.png").convert_alpha()
-        self._8=pygame.transform.scale(self._8,(20,30))
+        self._8 = self.resource_manager.load_image(self.path1+"0.jpg",(200,50))
 
-        self._9=pygame.image.load(self.path2+"9.png").convert_alpha()
-        self._9=pygame.transform.scale(self._9,(20,30))
+        self._9 = self.resource_manager.load_image(self.path1+"9.jpg",(200,50))
 
-        self.gold=pygame.image.load(self.path2+"gold.png").convert_alpha()
-        self.gold=pygame.transform.scale(self.gold,(60,30))
-    
+        self.gold = self.resource_manager.load_image(self.path1+"gold.jpg",(60,35))
+        
     def Draw(self,window):
         window.blit(self.background,(0,0))
         if self.Character.c_hp==10:
